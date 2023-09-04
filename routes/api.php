@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\EmailVerificationController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\API\LoanController;
+use App\Http\Controllers\API\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,13 @@ Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'ver
 Route::get('email/resend', [EmailVerificationController::class, 'resend'])->name('verification.resend');
 
 
-Route::middleware(['auth:api', 'verified'])->group( function () {
+Route::middleware(['auth:api', 'verified'])->group(function () {
     //Route::get('products', [ProductController::class, 'index']);
 });
+
+Route::post('books/{bookId}/{readerId}/rent', [LoanController::class, 'rent']);
+Route::get('books', [BookController::class, 'index']);
+Route::post('book', [BookController::class, 'store']);
+Route::get('book/{id}', [BookController::class, 'show']);
+Route::put('book/{id}', [BookController::class, 'update']);
+Route::delete('book/{id}', [BookController::class, 'destroy']);
