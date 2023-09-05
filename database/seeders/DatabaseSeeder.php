@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
         // \App\Models\User::factory(10)->create();
         \App\Models\Section::factory()->create([
             'name' => 'Terror',
@@ -49,6 +51,37 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'de Ingreso',
             'phone' => '0989804000',
             'document' => '0999999991'
+        ]);
+
+        \App\Models\Reader::factory()->create([
+            'name' => 'Persona 1',
+            'lastname' => 'Persona 1',
+            'phone' => '0989804000',
+            'document' => '0999999991'
+        ]);
+        \App\Models\Reader::factory()->create([
+            'name' => 'Persona 2',
+            'lastname' => 'Persona 2',
+            'phone' => '0989804000',
+            'document' => '0999999992'
+        ]);
+        \App\Models\Reader::factory()->create([
+            'name' => 'Persona 3',
+            'lastname' => 'Persona 3',
+            'phone' => '0989804000',
+            'document' => '0999999993'
+        ]);
+        \App\Models\Reader::factory()->create([
+            'name' => 'Persona 4',
+            'lastname' => 'Persona 4',
+            'phone' => '0989804000',
+            'document' => '0999999994'
+        ]);
+        \App\Models\Reader::factory()->create([
+            'name' => 'Persona 5',
+            'lastname' => 'Persona 5',
+            'phone' => '0989804000',
+            'document' => '0999999995'
         ]);
     }
 }

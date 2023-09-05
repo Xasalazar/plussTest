@@ -31,17 +31,20 @@ export const useAuthStore = defineStore("auth", {
             return header;
         },
         getErros(errors) {
-            if (errors.message) {
-                this.toast.error("" + errors.message, {
-                    position: "bottom-right",
+            if (errors.data) {
+                console.log(errors.data);
+                Object.keys(errors.data).forEach((key) => {
+                    this.toast.error("" + errors.data[key], {
+                        position: "bottom-right",
+                    });
                 });
                 return;
             }
-            Object.keys(errors).forEach((key) => {
-                this.toast.error("" + errors[key], {
-                    position: "bottom-right",
-                });
+
+            this.toast.error("" + errors.message, {
+                position: "bottom-right",
             });
+            return;
         },
         getMessage(message) {
             this.toast.success("" + message, {

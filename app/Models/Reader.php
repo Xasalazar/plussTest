@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Reader
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reader extends Model
 {
-
+  use HasFactory;
   protected $perPage = 20;
 
   /**
