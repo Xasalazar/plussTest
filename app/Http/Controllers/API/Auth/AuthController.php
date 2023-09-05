@@ -27,21 +27,20 @@ class AuthController extends BaseController
     public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', (array)$validator->errors(), 500);
         }
 
-        $success = DB::transaction(function() use ($request) {
+        $success = DB::transaction(function () use ($request) {
             $input = $request->all();
             $input['password'] = bcrypt($input['password']);
             $user = User::create($input);
             $success['token'] = $user->createToken('MyApp')->accessToken;
-            $success['name'] = $user->name;
+
 
             event(new Registered($user));
 
@@ -62,12 +61,11 @@ class AuthController extends BaseController
         Log::info("login started");
 
         if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+            return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
         }
 
         $user = Auth::user();
         $success['token'] = $user->createToken('MyApp')->accessToken;
-        $success['name'] = $user->name;
 
         return $this->sendResponse($success, 'User login successfully.');
     }
@@ -152,7 +150,9 @@ class AuthController extends BaseController
         Log::info('passwordReset reset ended');
         */
 
-        $status = Password::reset($input, function ($user, $password) {
+        $status = Password::reset(
+            $input,
+            function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ])->setRememberToken(Str::random(60));

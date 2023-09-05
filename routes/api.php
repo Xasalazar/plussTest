@@ -4,6 +4,8 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\EmailVerificationController;
 use App\Http\Controllers\API\LoanController;
 use App\Http\Controllers\API\BookController;
+use App\Http\Controllers\API\ReaderController;
+use App\Http\Controllers\API\SectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,12 +31,15 @@ Route::get('email/resend', [EmailVerificationController::class, 'resend'])->name
 
 
 Route::middleware(['auth:api', 'verified'])->group(function () {
-    //Route::get('products', [ProductController::class, 'index']);
-});
+    Route::post('rent/{bookId}/{readerId}', [LoanController::class, 'rent']);
 
-Route::post('books/{bookId}/{readerId}/rent', [LoanController::class, 'rent']);
-Route::get('books', [BookController::class, 'index']);
-Route::post('book', [BookController::class, 'store']);
-Route::get('book/{id}', [BookController::class, 'show']);
-Route::put('book/{id}', [BookController::class, 'update']);
-Route::delete('book/{id}', [BookController::class, 'destroy']);
+    Route::get('books', [BookController::class, 'index']);
+    Route::post('book', [BookController::class, 'store']);
+    Route::get('book/{id}', [BookController::class, 'show']);
+    Route::put('book/{id}', [BookController::class, 'update']);
+    Route::delete('book/{id}', [BookController::class, 'destroy']);
+
+    Route::get('sections', [SectionController::class, 'index']);
+
+    Route::get('reader/{document}', [ReaderController::class, 'show']);
+});

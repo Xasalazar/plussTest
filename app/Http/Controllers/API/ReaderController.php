@@ -45,13 +45,13 @@ class ReaderController extends BaseController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($document)
     {
-        $reader = Reader::find($id);
+        $reader = Reader::where('document', $document)->first();
         if (!$reader) {
             return $this->sendError('Lector no encontrado', [], 404);
         }
-        return $this->sendResponse($reader, 'Mensaje de Éxito', 200);
+        return $this->sendResponse($reader, 'Lector Encontrado con Éxito', 200);
     }
 
     /**

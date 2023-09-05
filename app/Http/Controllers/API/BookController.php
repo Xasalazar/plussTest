@@ -20,12 +20,12 @@ class BookController extends BaseController
      */
     public function index(Request $request)
     {
-        $books = Book::where('available', true)
+        $books = Book::with('section')->where('available', true)
             ->orderBy('publication_date')
             ->orderBy('title');
 
-        if ($request->has('category')) {
-            $categoria = $request->input('category');
+        $categoria = $request->input('category');
+        if (!empty($categoria)) {
             $books->whereHas('section', function ($query) use ($categoria) {
                 $query->where('name', $categoria);
             });
@@ -60,7 +60,7 @@ class BookController extends BaseController
      */
     public function show($id)
     {
-        $book = Book::find($id);
+        $book = Book::with('section')->find($id);
         if (!$book) {
             return $this->sendError('Libro no encontrado', [], 404);
         }
