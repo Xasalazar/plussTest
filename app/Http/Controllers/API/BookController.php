@@ -27,7 +27,7 @@ class BookController extends BaseController
         $categoria = $request->input('category');
         if (!empty($categoria)) {
             $books->whereHas('section', function ($query) use ($categoria) {
-                $query->where('name', $categoria);
+                $query->where('name', 'LIKE', '%' . $categoria . '%');
             });
         }
 
