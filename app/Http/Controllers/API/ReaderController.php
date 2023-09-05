@@ -93,8 +93,8 @@ class ReaderController extends BaseController
     protected function validateRequest(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'lastname' => 'required',
+            'name' => 'required|max:15',
+            'lastname' => 'required|max:15',
             'phone' => 'required',
             'document' => 'required',
         ]);

@@ -107,10 +107,10 @@ class BookController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'section_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|max:30',
+            'description' => 'required|min:15',
             'number_page' => 'required',
-            'publication_date' => 'required',
+            'publication_date' => 'required|date|before_or_equal:' . now()->format('Y-m-d')
         ]);
 
         if ($validator->fails()) {
