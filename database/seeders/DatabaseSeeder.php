@@ -41,6 +41,22 @@ class DatabaseSeeder extends Seeder
             'name' => 'Historico',
             'description' => 'Descricion de prubea',
         ]);
+        \App\Models\Section::factory()->create([
+            'name' => 'Comics',
+            'description' => 'Descricion de prubea',
+        ]);
+        \App\Models\Section::factory()->create([
+            'name' => 'Aventura',
+            'description' => 'Descricion de prubea',
+        ]);
+        \App\Models\Section::factory()->create([
+            'name' => 'Mundo',
+            'description' => 'Descricion de prubea',
+        ]);
+        \App\Models\Section::factory()->create([
+            'name' => 'Ficcion',
+            'description' => 'Descricion de prubea',
+        ]);
         \App\Models\User::factory()->create([
             'email' => 'test@example.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
@@ -83,5 +99,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '0989804000',
             'document' => '0999999995'
         ]);
+
+        \App\Models\Book::factory(50)->create();
     }
 }

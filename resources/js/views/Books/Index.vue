@@ -1,6 +1,7 @@
 <script>
 import Table from "@/components/Table.vue";
 import Search from "@/components/Search.vue";
+import Pagination from "@/components/Pagination.vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
 import axios from "axios";
@@ -8,12 +9,16 @@ export default {
     components: {
         Table,
         Search,
+        Pagination,
     },
     data() {
         return {
             books: [],
             router: useRouter(),
             auth: useAuthStore(),
+            currentPage: 1,
+            totalPages: 0,
+            searchTerm: "",
         };
     },
     mounted() {
@@ -38,19 +43,26 @@ export default {
             this.router.push({ path: "/edit/" + libro.id });
         },
         BuscarTermino(term) {
-            this.ListarLibros(term);
+            this.searchTerm = term;
+            this.ListarLibros();
         },
-        ListarLibros(category = "") {
+        CambioPagina(page) {
+            this.ListarLibros(page);
+        },
+        ListarLibros(page = "") {
             const headers = this.auth.chechHeader();
             axios
                 .get("/api/books", {
                     params: {
-                        category: category,
+                        category: this.searchTerm,
+                        page: page,
                     },
                     headers,
                 })
                 .then((response) => {
                     this.books = response.data.data.data;
+                    this.currentPage = response.data.data.current_page;
+                    this.totalPages = response.data.data.last_page;
                     //this.auth.getMessage(response.data.message);
                 })
                 .catch((error) => {
@@ -94,6 +106,11 @@ export default {
         @editar="EditarLibro"
         @extra="RentarLibro"
     ></Table>
+    <Pagination
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        @page-change="CambioPagina"
+    />
     <footer>
         <button @click="crearLibro" class="btn-create">Crear</button>
     </footer>
