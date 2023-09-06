@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('number_page');
             $table->date('publication_date');
-            $table->boolean('available')->default(true);
+            $table->integer('rented_copies')->default(0);
             $table->timestamps();
         });
     }

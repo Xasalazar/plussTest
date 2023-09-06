@@ -100,8 +100,20 @@ export default {
 
     <Table
         :Data="books"
-        :Headers="['Titulo', 'Descripcion', 'Numero de Pagina', 'Seccion']"
-        :Keys="['title', 'description', 'number_page', 'section.name']"
+        :Headers="[
+            'Titulo',
+            'Descripcion',
+            'Numero de Pagina',
+            'Seccion',
+            'Copias Rentadas',
+        ]"
+        :Keys="[
+            'title',
+            'description',
+            'number_page',
+            'section.name',
+            'rented_copies',
+        ]"
         @eliminar="EliminarLibro"
         @editar="EditarLibro"
         @extra="RentarLibro"

@@ -32,7 +32,7 @@ class Book extends Model
    *
    * @var array
    */
-  protected $fillable = ['section_id', 'title', 'description', 'number_page', 'publication_date', 'available'];
+  protected $fillable = ['section_id', 'title', 'description', 'number_page', 'publication_date', 'rented_copies'];
 
 
   /**

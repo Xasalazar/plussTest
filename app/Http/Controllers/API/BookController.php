@@ -20,7 +20,7 @@ class BookController extends BaseController
      */
     public function index(Request $request)
     {
-        $books = Book::with('section')->where('available', true)
+        $books = Book::with('section')->orderByDesc('rented_copies')
             ->orderBy('publication_date')
             ->orderBy('title');
 

@@ -21,9 +21,6 @@ class LoanController extends BaseController
         if (!$book) {
             return $this->sendError('Libro no encontrado', [], 404);
         }
-        if (!$book->available) {
-            return $this->sendError('Libro ya fue rentado', [], 404);
-        }
         $reader = Reader::find($readerId);
         if (!$reader) {
             return $this->sendError('Lector no encontrado', [], 404);
@@ -37,7 +34,7 @@ class LoanController extends BaseController
         $loan->save();
 
         // Actualizar el estado del libro a no disponible
-        $book->update(['available' => false]);
+        $book->update(['rented_copies' => $book->rented_copies + 1]);
         return $this->sendResponse($loan, 'Renta de Éxito', 200);
     }
 }
